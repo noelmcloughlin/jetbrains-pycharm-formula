@@ -1,0 +1,38 @@
+#Default Look Dictionary
+
+pycharm:
+  prefix: /usr/lib/python
+  tmpdir: /tmp/jetbrainstmp
+  symlink: /usr/bin/pycharm
+  symhome: /opt/jetbrains/pycharm
+  command: /bin/pycharm.sh
+  homes: /home
+  osflavour: linux
+
+  jetbrains:
+    product: II
+    edition: C
+    uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
+
+  dl:
+    archive_type: tar
+    opts: -s -L
+    interval: 60
+    retries: 1
+    source_url:
+    src_hashfile:
+    src_hashsum:
+    archive_name:
+    unpack_opts:
+
+  alt:
+    priority: 170
+    realhome: 
+    realcmd:
+
+  prefs:
+    user: undefined_user
+    importurl:
+    importdir:
+    jarfile: pycharm-prefs.jar
+

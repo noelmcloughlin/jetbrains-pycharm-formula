@@ -1,0 +1,8 @@
+name: pyCharm
+os: RedHat, Debian, Ubuntu, Suse, FreeBSD
+os_family: RedHat, Debian, Suse, FreeBSD
+version: 201710
+release: 1
+minimum_version: 2016.3
+summary: Formula for installing pyCharm
+description: Formula for installing Pycharm IDE for Python developers

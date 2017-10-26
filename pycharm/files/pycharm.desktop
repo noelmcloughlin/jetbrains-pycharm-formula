@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Jetbrains PyCharm
+Comment=JetBrains PyCharm (Python IDE)
+Icon=/opt/pycharm/bin/pycharm.png
+Exec={{ home }}/{{ command }}
+Terminal=false
+Type=Application
