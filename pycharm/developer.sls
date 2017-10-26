@@ -28,7 +28,7 @@ pycharm-desktop-shortcut-add:
    {% else %}
   file.managed:
     - source: salt://pycharm/files/pycharm.desktop
-    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm.desktop
+    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm{{ pycharm.jetbrains.edition }}.desktop
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
       {% if salt['grains.get']('os_family') in ('Suse') %} 
@@ -43,6 +43,7 @@ pycharm-desktop-shortcut-add:
     - context:
       home: {{ pycharm.symhome }}
       command: {{ pycharm.command }}
+      edition: {{ pycharm.jetbrains.edition }}
    {% endif %}
 
 
@@ -51,9 +52,9 @@ pycharm-desktop-shortcut-add:
 pycharm-prefs-importfile:
    {% if pycharm.prefs.importdir %}
   file.managed:
-    - onlyif: test -f {{ pycharm.prefs.importdir }}/{{ pycharm.prefs.jarfile }}
-    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.jarfile }}
-    - source: {{ pycharm.prefs.importdir }}/{{ pycharm.prefs.jarfile }}
+    - onlyif: test -f {{ pycharm.prefs.importdir }}/{{ pycharm.prefs.myfile }}
+    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.myfile }}
+    - source: {{ pycharm.prefs.importdir }}/{{ pycharm.prefs.myfile }}
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
         {% if salt['grains.get']('os_family') in ('Suse') %}
@@ -62,12 +63,12 @@ pycharm-prefs-importfile:
         #inherit Darwin ownership
     - group: {{ pycharm.prefs.user }}
         {% endif %}
-    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.jarfile }}
+    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.myfile }}
    {% else %}
   cmd.run:
-    - name: curl -o {{pycharm.homes}}/{{pycharm.prefs.user}}/{{pycharm.prefs.jarfile}} {{pycharm.prefs.importurl}}
+    - name: curl -o {{pycharm.homes}}/{{pycharm.prefs.user}}/{{pycharm.prefs.myfile}} {{pycharm.prefs.importurl}}
     - runas: {{ pycharm.prefs.user }}
-    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.jarfile }}
+    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.myfile }}
    {% endif %}
 
   {% endif %}

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Jetbrains PyCharm
+Name=Jetbrains PyCharm {{ edition }} edition
 Comment=JetBrains PyCharm (Python IDE)
-Icon=/opt/pycharm/bin/pycharm.png
+Icon={{ home }}/{{ command.split('.')[0] }}.png
 Exec={{ home }}/{{ command }}
 Terminal=false
 Type=Application

@@ -2,7 +2,7 @@
 pycharm
 ========
 
-Formula for latest PyCharm IDE from Jetbrains. Supports both 'Community' (default) and 'Professional' editions (pillar override).
+Formula for latest PyCharm IDE from Jetbrains. Supports 'Community' (default), 'Professional', and 'Educational' editions.
 
 .. note::
 
@@ -18,7 +18,7 @@ Available states
 ``pycharm``
 ------------
 
-Downloads the archive from Jetbrains website, unpacks locally and installs the IDE on the Operating System.  Places a environment profile in /etc/profile.d - this way the PATH is set correctly for all system users.
+Downloads the archive from Jetbrains website, unpacks locally and installs the IDE on the Operating System. On Linux, the PATH is set for all system users by adding software profile to /etc/profile.d/ directory.
 
 .. note::
 
@@ -28,11 +28,16 @@ This formula automatically installs latest Jetbrains release. This behaviour may
 ------------
 Full support for debian alternatives in supported Linux distributions (i.e. not Archlinux, Windows, MacOS).
 
+.. note::
+
+The linux-alternatives 'priority' pillar value must be updated for each newly installed release/editions.
+
+
 ``pycharm.developer``
 ------------
-Optionally get preferences file from url/share and place in 'user' (pillar) home directory for import.  Creates a Desktop shortcut on Linux and MacOS.
+Create Desktop shortcuts. Optionally get preferences file from url/share and save into 'user' (pillar) home directory.
 
 
 Please see the pillar.example for configuration.
 
-Tested on Linux (Ubuntu, Fedora, Arch, and Suse), MacOS. Not verified on Windows OS.
+Tested on Linux (Ubuntu, Centos, Arch, and Suse), MacOS. Not verified on Windows OS.

@@ -1,10 +1,15 @@
 pycharm:
   jetbrains:
+    #Defaults is 'PC' (PyCharm). Choose 'PCE' (PyCharm-Edu) for students.
+    product: PC
+    #Defaults is 'C' (community). Choose 'P' (professional) or '' (students).
     edition: C
   dl:
     retries: 1
     interval: 30
   alt:
+   #Important: Increase priority for each version/edition installation
+   #Only valid for Linux distributions supporting debian alternatives.
     priority: 170
   prefs:
     user: undefined_user

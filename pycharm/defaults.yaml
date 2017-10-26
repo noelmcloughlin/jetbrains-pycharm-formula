@@ -1,7 +1,7 @@
 #Default Look Dictionary
 
 pycharm:
-  prefix: /usr/lib/python
+  prefix: /usr/lib/jetbrains
   tmpdir: /tmp/jetbrainstmp
   symlink: /usr/bin/pycharm
   symhome: /opt/jetbrains/pycharm
@@ -10,7 +10,9 @@ pycharm:
   osflavour: linux
 
   jetbrains:
-    product: II
+    #Product default is PyCharm (PC), v.s. PyCharm-Edu (PCE).
+    product: PC
+    #Defaults to pycharm community edition
     edition: C
     uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
 
@@ -34,5 +36,5 @@ pycharm:
     user: undefined_user
     importurl:
     importdir:
-    jarfile: pycharm-prefs.jar
+    myfile: pycharm-prefs.xml
 
