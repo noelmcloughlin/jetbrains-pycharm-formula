@@ -1,5 +1,6 @@
 pycharm:
   jetbrains:
+    #See https://www.jetbrains.com/help/pycharm/meet-pycharm.html
     #Defaults is 'PC' (PyCharm). Choose 'PCE' (PyCharm-Edu) for students.
     product: PC
     #Defaults is 'C' (community). Choose 'P' (professional) or '' (students).
@@ -7,10 +8,13 @@ pycharm:
   dl:
     retries: 1
     interval: 30
-  alt:
-   #Important: Increase priority for each version/edition installation
-   #Only valid for Linux distributions supporting debian alternatives.
-    priority: 170
+  linux:
+    #Increase priority for each version/edition installation
+    altpriority: 170
   prefs:
     user: undefined_user
- 
+    #See https://www.jetbrains.com/help/pycharm/exporting-and-importing-settings.html
+    jarurl:
+    jardir:
+    jarfile: pycharm-settings.jar
+

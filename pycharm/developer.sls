@@ -1,6 +1,6 @@
 {% from "pycharm/map.jinja" import pycharm with context %}
 
-{% if pycharm.prefs.user not in (None, 'undefined_user') %}
+{% if pycharm.prefs.user not in (None, 'undfined', 'undefined_user') %}
 
   {% if grains.os == 'MacOS' %}
 pycharm-desktop-shortcut-clean:
@@ -20,12 +20,14 @@ pycharm-desktop-shortcut-add:
     - context:
       user: {{ pycharm.prefs.user }}
       homes: {{ pycharm.homes }}
+      edition: {{ pycharm.jetbrains.edition }}
   cmd.run:
     - name: /tmp/mac_shortcut.sh {{ pycharm.jetbrains.edition }}
     - runas: {{ pycharm.prefs.user }}
     - require:
       - file: pycharm-desktop-shortcut-add
    {% else %}
+   #Linux
   file.managed:
     - source: salt://pycharm/files/pycharm.desktop
     - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm{{ pycharm.jetbrains.edition }}.desktop
@@ -39,36 +41,35 @@ pycharm-desktop-shortcut-add:
     - mode: 644
     - force: True
     - template: jinja
-    - onlyif: test -f {{ pycharm.symhome }}/{{ pycharm.command }}
+    - onlyif: test -f {{ pycharm.jetbrains.realcmd }}
     - context:
-      home: {{ pycharm.symhome }}
+      home: {{ pycharm.jetbrains.realhome }}
       command: {{ pycharm.command }}
-      edition: {{ pycharm.jetbrains.edition }}
    {% endif %}
 
 
-  {% if pycharm.prefs.importurl or pycharm.prefs.importdir %}
+  {% if pycharm.prefs.jarurl or pycharm.prefs.jardir %}
 
 pycharm-prefs-importfile:
-   {% if pycharm.prefs.importdir %}
+   {% if pycharm.prefs.jardir %}
   file.managed:
-    - onlyif: test -f {{ pycharm.prefs.importdir }}/{{ pycharm.prefs.myfile }}
-    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.myfile }}
-    - source: {{ pycharm.prefs.importdir }}/{{ pycharm.prefs.myfile }}
+    - onlyif: test -f {{ pycharm.prefs.jardir }}/{{ pycharm.prefs.jarfile }}
+    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.jarfile }}
+    - source: {{ pycharm.prefs.jardir }}/{{ pycharm.prefs.jarfile }}
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
-        {% if salt['grains.get']('os_family') in ('Suse') %}
+        {% if grains.os_family in ('Suse') %}
     - group: users
         {% elif grains.os not in ('MacOS') %}
         #inherit Darwin ownership
     - group: {{ pycharm.prefs.user }}
         {% endif %}
-    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.myfile }}
+    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.jarfile }}
    {% else %}
   cmd.run:
-    - name: curl -o {{pycharm.homes}}/{{pycharm.prefs.user}}/{{pycharm.prefs.myfile}} {{pycharm.prefs.importurl}}
+    - name: curl -o {{pycharm.homes}}/{{pycharm.prefs.user}}/{{pycharm.prefs.jarfile}} {{pycharm.prefs.jarurl}}
     - runas: {{ pycharm.prefs.user }}
-    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.myfile }}
+    - if_missing: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/{{ pycharm.prefs.jarfile }}
    {% endif %}
 
   {% endif %}

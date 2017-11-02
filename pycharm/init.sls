@@ -5,16 +5,14 @@ pycharm-remove-prev-archive:
   file.absent:
     - name: '{{ pycharm.tmpdir }}/{{ pycharm.dl.archive_name }}'
     - require_in:
-      - pycharm-install-dir
+      - pycharm-extract-dirs
 
-pycharm-install-dir:
+pycharm-extract-dirs:
   file.directory:
     - names:
-      - '{{ pycharm.alt.realhome }}'
       - '{{ pycharm.tmpdir }}'
 {% if grains.os not in ('MacOS', 'Windows') %}
-      - '{{ pycharm.prefix }}'
-      - '{{ pycharm.symhome }}'
+      - '{{ pycharm.jetbrains.realhome }}'
     - user: root
     - group: root
     - mode: 755
@@ -31,19 +29,6 @@ pycharm-download-archive:
         attempts: {{ pycharm.dl.retries }}
         interval: {{ pycharm.dl.interval }}
       {% endif %}
-
-{% if grains.os not in ('MacOS') %}
-pycharm-unpacked-dir:
-  file.directory:
-    - name: '{{ pycharm.alt.realhome }}'
-    - user: root
-    - group: root
-    - mode: 755
-    - makedirs: True
-    - force: True
-    - onchanges:
-      - cmd: pycharm-download-archive
-{% endif %}
 
 {%- if pycharm.dl.src_hashsum %}
    # Check local archive using hashstring for older Salt / MacOS.
@@ -71,13 +56,14 @@ pycharm-package-install:
     - force: True
     - allow_untrusted: True
 {% else %}
+  # Linux
   archive.extracted:
     - source: 'file://{{ pycharm.tmpdir }}/{{ pycharm.dl.archive_name }}'
-    - name: '{{ pycharm.alt.realhome }}'
+    - name: '{{ pycharm.jetbrains.realhome }}'
     - archive_format: {{ pycharm.dl.archive_type }}
        {% if grains['saltversioninfo'] < [2016, 11, 0] %}
     - tar_options: {{ pycharm.dl.unpack_opts }}
-    - if_missing: '{{ pycharm.alt.realcmd }}'
+    - if_missing: '{{ pycharm.jetbrains.realcmd }}'
        {% else %}
     - options: {{ pycharm.dl.unpack_opts }}
        {% endif %}
@@ -95,36 +81,14 @@ pycharm-package-install:
 
 pycharm-remove-archive:
   file.absent:
-    - names:
-      # todo: maybe just delete the tmpdir itself
-      - '{{ pycharm.tmpdir }}/{{ pycharm.dl.archive_name }}'
-      - '{{ pycharm.tmpdir }}/{{ pycharm.dl.archive_name }}.sha256'
+    - name: '{{ pycharm.tmpdir }}'
     - onchanges:
 {%- if grains.os in ('Windows') %}
       - pkg: pycharm-package-install
 {%- elif grains.os in ('MacOS') %}
       - macpackage: pycharm-package-install
 {% else %}
+      #Unix
       - archive: pycharm-package-install
-
-pycharm-home-symlink:
-  file.symlink:
-    - name: '{{ pycharm.symhome }}'
-    - target: '{{ pycharm.alt.realhome }}'
-    - force: True
-    - onchanges:
-      - archive: pycharm-package-install
-
-# Update system profile with PATH
-pycharm-config:
-  file.managed:
-    - name: /etc/profile.d/pycharm.sh
-    - source: salt://pycharm/files/pycharm.sh
-    - template: jinja
-    - mode: 644
-    - user: root
-    - group: root
-    - context:
-      pycharm_home: '{{ pycharm.symhome }}'
 
 {% endif %}
