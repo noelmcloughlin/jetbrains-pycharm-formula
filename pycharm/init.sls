@@ -11,6 +11,7 @@ pycharm-extract-dirs:
   file.directory:
     - names:
       - '{{ pycharm.tmpdir }}'
+      - '{{ pycharm.jetbrains.home }}'
 {% if grains.os not in ('MacOS', 'Windows') %}
       - '{{ pycharm.jetbrains.realhome }}'
     - user: root

@@ -2,7 +2,7 @@
 pycharm
 ========
 
-Formula for latest pycharm IDE from Jetbrains. Supports both 'Community' (default), 'Professionl', and 'Educational' editions.
+Formula for latest pycharm IDE from Jetbrains. Support 'Community' (default), 'Professional', and 'Educational' editions.
 
 .. note::
 

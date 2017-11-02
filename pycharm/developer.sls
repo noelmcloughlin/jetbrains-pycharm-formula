@@ -26,14 +26,14 @@ pycharm-desktop-shortcut-add:
     - runas: {{ pycharm.prefs.user }}
     - require:
       - file: pycharm-desktop-shortcut-add
-   {% else %}
+   {% elif grains.os not in ('Windows') %}
    #Linux
   file.managed:
     - source: salt://pycharm/files/pycharm.desktop
     - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm{{ pycharm.jetbrains.edition }}.desktop
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
-      {% if salt['grains.get']('os_family') in ('Suse') %} 
+      {% if grains.os_family in ('Suse') %} 
     - group: users
       {% else %}
     - group: {{ pycharm.prefs.user }}
@@ -41,10 +41,12 @@ pycharm-desktop-shortcut-add:
     - mode: 644
     - force: True
     - template: jinja
-    - onlyif: test -f {{ pycharm.jetbrains.realcmd }}
+    # problem rendering jetbrains.realcmd?
+    - onlyif: test -d {{ pycharm.jetbrains.realhome }}
     - context:
       home: {{ pycharm.jetbrains.realhome }}
       command: {{ pycharm.command }}
+      edition: {{ pycharm.jetbrains.edition }}
    {% endif %}
 
 

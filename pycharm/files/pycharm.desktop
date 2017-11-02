@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Jetbrains PyCharm {{ edition }} edition
+Name=Jetbrains PyCharm {{ edition }}E
 Comment=JetBrains PyCharm (Python IDE)
 Icon={{ home }}/{{ command.split('.')[0] }}.png
 Exec={{ home }}/{{ command }}
