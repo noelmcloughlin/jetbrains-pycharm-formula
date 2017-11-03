@@ -1,6 +1,6 @@
 {% from "pycharm/map.jinja" import pycharm with context %}
 
-{% if grains.os not in ('MacOS', 'Windows') %}
+{% if grains.os not in ('MacOS', 'Windows',) %}
 
 pycharm-home-symlink:
   file.symlink:
@@ -22,7 +22,8 @@ pycharm-config:
       home: '{{ pycharm.jetbrains.home }}/pycharm'
 
   # Debian alternatives
-  {% if grains.os_family not in ('Arch') %}
+  {% if pycharm.linux.altpriority > 0 %}
+     {% if grains.os_family not in ('Arch',) %}
 
 # Add pycharm-home to alternatives system
 pycharm-home-alt-install:
@@ -57,6 +58,7 @@ pycharm-alt-set:
     - onchanges:
       - alternatives: pycharm-alt-install
 
+      {% endif %}
   {% endif %}
 
 {% endif %}

@@ -1,6 +1,6 @@
 {% from "pycharm/map.jinja" import pycharm with context %}
 
-{% if pycharm.prefs.user not in (None, 'undfined', 'undefined_user') %}
+{% if pycharm.prefs.user not in (None, 'undefined_user', 'undefined', '',) %}
 
   {% if grains.os == 'MacOS' %}
 pycharm-desktop-shortcut-clean:
@@ -26,14 +26,14 @@ pycharm-desktop-shortcut-add:
     - runas: {{ pycharm.prefs.user }}
     - require:
       - file: pycharm-desktop-shortcut-add
-   {% elif grains.os not in ('Windows') %}
+   {% elif grains.os not in ('Windows',) %}
    #Linux
   file.managed:
     - source: salt://pycharm/files/pycharm.desktop
     - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm{{ pycharm.jetbrains.edition }}E.desktop
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
-      {% if grains.os_family in ('Suse') %} 
+      {% if grains.os_family in ('Suse',) %} 
     - group: users
       {% else %}
     - group: {{ pycharm.prefs.user }}
@@ -60,9 +60,9 @@ pycharm-prefs-importfile:
     - source: {{ pycharm.prefs.jardir }}/{{ pycharm.prefs.jarfile }}
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
-        {% if grains.os_family in ('Suse') %}
+        {% if grains.os_family in ('Suse',) %}
     - group: users
-        {% elif grains.os not in ('MacOS') %}
+        {% elif grains.os not in ('MacOS',) %}
         #inherit Darwin ownership
     - group: {{ pycharm.prefs.user }}
         {% endif %}

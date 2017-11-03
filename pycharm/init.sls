@@ -12,7 +12,7 @@ pycharm-extract-dirs:
     - names:
       - '{{ pycharm.tmpdir }}'
       - '{{ pycharm.jetbrains.home }}'
-{% if grains.os not in ('MacOS', 'Windows') %}
+{% if grains.os not in ('MacOS', 'Windows',) %}
       - '{{ pycharm.jetbrains.realhome }}'
     - user: root
     - group: root
@@ -34,7 +34,7 @@ pycharm-download-archive:
 {%- if pycharm.dl.src_hashsum %}
    # Check local archive using hashstring for older Salt / MacOS.
    # (see https://github.com/saltstack/salt/pull/41914).
-  {%- if grains['saltversioninfo'] <= [2016, 11, 6] or grains.os in ('MacOS') %}
+  {%- if grains['saltversioninfo'] <= [2016, 11, 6] or grains.os in ('MacOS',) %}
 pycharm-check-archive-hash:
    module.run:
      - name: file.check_hash
@@ -84,9 +84,9 @@ pycharm-remove-archive:
   file.absent:
     - name: '{{ pycharm.tmpdir }}'
     - onchanges:
-{%- if grains.os in ('Windows') %}
+{%- if grains.os in ('Windows',) %}
       - pkg: pycharm-package-install
-{%- elif grains.os in ('MacOS') %}
+{%- elif grains.os in ('MacOS',) %}
       - macpackage: pycharm-package-install
 {% else %}
       #Unix
