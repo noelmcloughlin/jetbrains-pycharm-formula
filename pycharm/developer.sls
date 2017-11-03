@@ -30,7 +30,7 @@ pycharm-desktop-shortcut-add:
    #Linux
   file.managed:
     - source: salt://pycharm/files/pycharm.desktop
-    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm{{ pycharm.jetbrains.edition }}.desktop
+    - name: {{ pycharm.homes }}/{{ pycharm.prefs.user }}/Desktop/pycharm{{ pycharm.jetbrains.edition }}E.desktop
     - user: {{ pycharm.prefs.user }}
     - makedirs: True
       {% if grains.os_family in ('Suse') %} 
