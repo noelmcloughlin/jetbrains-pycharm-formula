@@ -32,6 +32,7 @@ pycharm:
 
   prefs:
     user:
+    group:
     #See https://www.jetbrains.com/help/pycharm/exporting-and-importing-settings.html
     jarurl:
     jardir:
