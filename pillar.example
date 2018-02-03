@@ -11,7 +11,7 @@ pycharm:
   linux:
     #Enable Debian alternatives feature by setting nonzero 'altpriority' value here.
     #Increase same value on each subsequent software installation.
-    #altpriority: 170
+    altpriority: 0
   prefs:
     user: undefined_user
     #See https://www.jetbrains.com/help/pycharm/exporting-and-importing-settings.html
