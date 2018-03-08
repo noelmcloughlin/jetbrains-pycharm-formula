@@ -37,6 +37,8 @@ pycharm-home-alt-set:
   alternatives.set:
     - name: pycharmhome
     - path: {{ pycharm.jetbrains.realhome }}
+    - require:
+      - alternatives: pycharm-home-alt-install
     - onchanges:
       - alternatives: pycharm-home-alt-install
 
