@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-# Start with defaults, merge osmapping, then pillars.
+{% import_yaml 'pycharm/defaults.yaml' as defaults %}
+{% import_yaml "pycharm/osmap.yaml" as osmap %}
 
-{% import_yaml 'pycharm/defaults.yaml' as defs %}
-{% set osmap = salt['grains.filter_by']({
-        'default':{
-        },
-        'MacOS':  { 'prefix' : '/Applications/PyCharm',
-                    'homes'  : '/Users',
-                    'command': '/pycharm',
-                    'osflavour': 'mac',
-        },
-        'Windows':{ 'prefix' : 'C:\\Program files',
-                    'homes'  : 'C:\\Users',
-                    'tmpdir' : 'C:\\temp\\pycharmtmp\\',
-                    'command': '\\pycharm.exe',
-                    'osflavour': 'windows',
-        },
-  }, grain="os",
-)%}
-{% do defs.pycharm.update(osmap) %}
-{% set ide = salt['pillar.get']( 'pycharm', default=defs.pycharm, merge=True) %}
+# start with defaults, merge osmap, then pillar data
+{% set ide = salt['grains.filter_by'](
+    defaults,
+    merge=salt['grains.filter_by'](
+        osmap,
+        grain='os',
+        merge=salt['pillar.get']('pycharm', {}),
+    ),
+    base='pycharm',
+) %}
 
 # Get dynamic release metadata
 {%- set pcode = ide.jetbrains.product ~ ide.jetbrains.edition %}
