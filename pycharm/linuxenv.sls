@@ -21,9 +21,8 @@ pycharm-config:
     - context:
       home: '{{ pycharm.jetbrains.home }}/pycharm'
 
-  # Debian alternatives
-  {% if pycharm.linux.altpriority > 0 %}
-     {% if grains.os_family not in ('Arch',) %}
+  # Linux alternatives
+  {% if pycharm.linux.altpriority > 0 and grains.os_family not in ('Arch',) %}
 
 # Add pycharm-home to alternatives system
 pycharm-home-alt-install:
@@ -35,12 +34,14 @@ pycharm-home-alt-install:
 
 pycharm-home-alt-set:
   alternatives.set:
-    - name: pycharmhome
+    - name: pycharm-home
     - path: {{ pycharm.jetbrains.realhome }}
+    - require:
+      - alternatives: pycharm-home-alt-install
     - onchanges:
       - alternatives: pycharm-home-alt-install
 
-# Add intelli to alternatives system
+# Add to alternatives system
 pycharm-alt-install:
   alternatives.install:
     - name: pycharm
@@ -58,7 +59,6 @@ pycharm-alt-set:
     - onchanges:
       - alternatives: pycharm-alt-install
 
-      {% endif %}
   {% endif %}
 
 {% endif %}
