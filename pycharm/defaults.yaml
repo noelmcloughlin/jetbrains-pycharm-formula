@@ -29,6 +29,9 @@ pycharm:
     symlink: /usr/bin/pycharm
     #debian alternatives is disabled by default. Activated via pillar value.
     altpriority: 0
+    #Place .desktop file for showing PyCharm in e.g. Gnome's launcher.
+    install_desktop_file: True
+    desktop_file: /usr/share/applications/pycharm.desktop
 
   prefs:
     user:
