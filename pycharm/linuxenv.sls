@@ -61,4 +61,18 @@ pycharm-alt-set:
 
   {% endif %}
 
+# Place .desktop file in /usr/share/applications
+# This makes pycharm show up in e.g. Gnome's launcher.
+  {% if pycharm.linux.install_desktop_file %}
+pycharm-global-desktop-file:
+  file.managed:
+    - name: /usr/share/applications/pycharm.desktop
+    - source: salt://pycharm/files/pycharm.desktop
+    - template: jinja
+    - context:
+      home: {{ pycharm.jetbrains.realhome }}
+      command: {{ pycharm.command }}
+      edition: {{ pycharm.jetbrains.edition }}
+  {% endif %}
+
 {% endif %}
