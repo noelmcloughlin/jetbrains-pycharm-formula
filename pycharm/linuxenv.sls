@@ -66,7 +66,7 @@ pycharm-alt-set:
   {% if pycharm.linux.install_desktop_file %}
 pycharm-global-desktop-file:
   file.managed:
-    - name: /usr/share/applications/pycharm.desktop
+    - name: {{ pycharm.linux.desktop_file }}
     - source: salt://pycharm/files/pycharm.desktop
     - template: jinja
     - context:
