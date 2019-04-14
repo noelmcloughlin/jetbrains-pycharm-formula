@@ -31,6 +31,9 @@ pycharm-home-alt-install:
     - link: '{{ pycharm.jetbrains.home }}/pycharm'
     - path: '{{ pycharm.jetbrains.realhome }}'
     - priority: {{ pycharm.linux.altpriority }}
+    - retry:
+        attempts: 3
+        until: True
 
 pycharm-home-alt-set:
   alternatives.set:
@@ -40,6 +43,9 @@ pycharm-home-alt-set:
       - alternatives: pycharm-home-alt-install
     - onchanges:
       - alternatives: pycharm-home-alt-install
+    - retry:
+        attempts: 3
+        until: True
 
 # Add to alternatives system
 pycharm-alt-install:
@@ -51,6 +57,9 @@ pycharm-alt-install:
     - require:
       - alternatives: pycharm-home-alt-install
       - alternatives: pycharm-home-alt-set
+    - retry:
+        attempts: 3
+        until: True
 
 pycharm-alt-set:
   alternatives.set:
@@ -58,6 +67,9 @@ pycharm-alt-set:
     - path: {{ pycharm.jetbrains.realcmd }}
     - onchanges:
       - alternatives: pycharm-alt-install
+    - retry:
+        attempts: 3
+        until: True
 
   {% endif %}
 
