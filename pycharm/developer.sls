@@ -17,9 +17,9 @@ pycharm-desktop-shortcut-add:
     - mode: 755
     - template: jinja
     - context:
-      user: {{ pycharm.prefs.user }}
-      homes: {{ pycharm.homes }}
-      edition: {{ pycharm.jetbrains.edition }}
+      user: {{ pycharm.prefs.user|json }}
+      homes: {{ pycharm.homes|json }}
+      edition: {{ pycharm.jetbrains.edition|json }}
     - onlyif: test "`uname`" = "Darwin"
   cmd.run:
     - name: /tmp/mac_shortcut.sh {{ pycharm.jetbrains.edition }}
@@ -45,9 +45,9 @@ pycharm-desktop-shortcut-install:
     # problem rendering jetbrains.realcmd?
     - onlyif: test -d {{ pycharm.jetbrains.realhome }}
     - context:
-      home: {{ pycharm.jetbrains.realhome }}
-      command: {{ pycharm.command }}
-      edition: {{ pycharm.jetbrains.edition }}
+      home: {{ pycharm.jetbrains.realhome|json }}
+      command: {{ pycharm.command|json }}
+      edition: {{ pycharm.jetbrains.edition|json }}
    {% endif %}
 
   {% if pycharm.prefs.jarurl or pycharm.prefs.jardir %}
@@ -72,4 +72,3 @@ pycharm-prefs-importfile:
   {% endif %}
 
 {% endif %}
-
