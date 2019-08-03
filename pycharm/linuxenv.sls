@@ -19,7 +19,7 @@ pycharm-config:
     - user: root
     - group: root
     - context:
-      home: '{{ pycharm.jetbrains.home }}/pycharm'
+      home: '{{ pycharm.jetbrains.home|json }}/pycharm'
 
   # Linux alternatives
   {% if pycharm.linux.altpriority > 0 and grains.os_family not in ('Arch',) %}
@@ -82,9 +82,9 @@ pycharm-global-desktop-file:
     - source: salt://pycharm/files/pycharm.desktop
     - template: jinja
     - context:
-      home: {{ pycharm.jetbrains.realhome }}
-      command: {{ pycharm.command }}
-      edition: {{ pycharm.jetbrains.edition }}
+      home: {{ pycharm.jetbrains.realhome|json }}
+      command: {{ pycharm.command|json }}
+      edition: {{ pycharm.jetbrains.edition|json }}
   {% endif %}
 
 {% endif %}
