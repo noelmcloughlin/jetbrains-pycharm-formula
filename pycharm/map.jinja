@@ -22,15 +22,17 @@
 {%- do pycharm.update({ 'version': jdata[ pcode ][0]['version'] }) %}
 
 {%- set dirname = 'pycharm-%s-%s'|format( pycharm.edition, pycharm.version) %}
-{%- set url = jdata[ pcode ][0]['downloads'][ pycharm.pkg.tag ]['link'] %}
-{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ pycharm.pkg.tag ]['checksumLink'])).split(' ')[0] %}  # noqa 204
+{%- set url = jdata[ pcode ][0]['downloads'][ pycharm.flavour ]['link'] %}
+{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ pycharm.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
 
 {%- if pycharm.pkg.use_upstream_archive %}
        {%- do pycharm.pkg.archive.update({'name': pycharm.dir.archive ~ '/' ~ dirname,
-                                           'source': url,
-                                           'source_hash': hash }) %}
+                                          'path': pycharm.dir.archive ~ '/' ~ dirname,
+                                          'source': url,
+                                          'source_hash': hash }) %}
 {%- endif %}
 
 {%- if pycharm.pkg.use_upstream_macapp %}
-       {%- do pycharm.pkg.macapp.update({ 'name': '/Applications', 'source': url, 'source_hash': hash }) %}
+       {%- do pycharm.pkg.macapp.update({
+              'name': '/Applications',  'path': '/Applications', 'source': url, 'source_hash': hash }) %}
 {%- endif %}

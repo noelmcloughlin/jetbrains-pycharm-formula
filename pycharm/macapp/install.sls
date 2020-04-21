@@ -54,7 +54,7 @@ pycharm-macos-app-install-macpackage:
     - mode: 755
     - template: jinja
     - context:
-      macname: {{ pycharm.dir.name }}
+      appname: {{ pycharm.pkg.name }}
       edition: {{ pycharm.edition }}
       user: {{ pycharm.identity.user }}
       homes: {{ pycharm.dir.homes }}

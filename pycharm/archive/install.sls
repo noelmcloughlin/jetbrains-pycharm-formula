@@ -11,7 +11,7 @@ pycharm-package-archive-install:
     - require_in:
       - file: pycharm-package-archive-install
   file.directory:
-    - name: {{ pycharm.pkg.archive.name }}
+    - name: {{ pycharm.pkg.archive.path }}
     - user: {{ pycharm.identity.rootuser }}
     - group: {{ pycharm.identity.rootgroup }}
     - mode: 755
@@ -39,7 +39,7 @@ pycharm-package-archive-install:
 pycharm-archive-install-file-symlink-pycharm:
   file.symlink:
     - name: /usr/local/bin/pycharm
-    - target: {{ pycharm.pkg.archive.name }}/{{ pycharm.command }}
+    - target: {{ pycharm.pkg.archive.path }}/{{ pycharm.command }}
     - force: True
     - onlyif: {{ grains.kernel|lower != 'windows' }}
     - require:

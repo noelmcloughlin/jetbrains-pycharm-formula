@@ -2,10 +2,12 @@
 # vim: ft=yaml
 ---
 pycharm:
-  product: PC   # Pycharm
+  product: PC
   edition: C    # community or '' (professional)
+  flavour: linuxAnaconda
   release: latest
   version: latest
+
   command: /bin/pycharm.sh
   config_file: None
   config: {}
@@ -13,9 +15,7 @@ pycharm:
   environ: []
 
   pkg:
-    name: pycharm
-    tag: linuxAnaconda
-    release: None
+    name: Pycharm
     use_upstream_archive: true
     use_upstream_macapp: false
     deps:
@@ -24,9 +24,10 @@ pycharm:
       - gzip
     repo: {}
     suffix: tar.gz
-    macapp: {}
+    macapp:
+      path: None
     archive:
-      name: None
+      path: None
       uri: 'https://data.services.jetbrains.com/products/releases?latest=true&code='
       source_hash: None
       enforce_toplevel: false
@@ -37,7 +38,6 @@ pycharm:
     archive: /usr/local/jetbrains
     homes: /home
     tmp: /tmp/jetbrains/pycharm
-    name: Pycharm
 
   identity:
     rootuser: root

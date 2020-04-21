@@ -10,7 +10,7 @@ pycharm-macos-app-clean-files:
   file.absent:
     - names:
       - {{ pycharm.dir.tmp }}
-      - /Applications/{{ pycharm.dir.name }}.app
+      - /Applications/{{ pycharm.pkg.name }}.app
 
     {%- else %}
 

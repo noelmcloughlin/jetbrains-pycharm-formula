@@ -3,6 +3,7 @@
 ---
 pycharm:
   edition: C       # community
+  flavour: linuxAnaconda
   environ:
     a: b
   pkg:

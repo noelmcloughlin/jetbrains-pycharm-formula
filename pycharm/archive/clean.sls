@@ -8,5 +8,5 @@
 pycharm-package-archive-clean-file-absent:
   file.absent:
     - names:
-      - {{ pycharm.pkg.archive.name }}
+      - {{ pycharm.pkg.archive.path }}
       - /usr/local/jetbrains/pycharm-{{ pycharm.edition }}-*

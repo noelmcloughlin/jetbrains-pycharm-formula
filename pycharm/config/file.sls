@@ -29,9 +29,9 @@ pycharm-config-file-managed-config_file:
     - template: jinja
     - context:
               {%- if pycharm.pkg.use_upstream_macapp %}
-        path: {{ pycharm.pkg.macapp.name }}
+        path: {{ pycharm.pkg.macapp.path }}
               {%- else %}
-        path: {{ pycharm.pkg.archive.name }}
+        path: {{ pycharm.pkg.archive.path }}
               {%- endif %}
         config: {{ pycharm.config|json }}
     - require:

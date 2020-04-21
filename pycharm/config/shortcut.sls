@@ -27,15 +27,15 @@ pycharm-config-file-file-managed-desktop-shortcut_file:
     - makedirs: True
     - template: jinja
     - context:
-        macname: {{ pycharm.dir.name }}
+        appname: {{ pycharm.pkg.name }}
         edition: {{ pycharm.edition|json }}
         command: {{ pycharm.command|json }}
               {%- if pycharm.pkg.use_upstream_macapp %}
-        path: {{ pycharm.pkg.macapp.name }}
-    - onlyif: test -f "{{ pycharm.pkg.macapp.name }}/{{ pycharm.command }}"
+        path: {{ pycharm.pkg.macapp.path }}
+    - onlyif: test -f "{{ pycharm.pkg.macapp.path }}/{{ pycharm.command }}"
               {%- else %}
-        path: {{ pycharm.pkg.archive.name }}
-    - onlyif: test -f {{ pycharm.pkg.archive.name }}/{{ pycharm.command }}
+        path: {{ pycharm.pkg.archive.path }}
+    - onlyif: test -f {{ pycharm.pkg.archive.path }}/{{ pycharm.command }}
               {%- endif %}
     - require:
       - sls: {{ sls_package_install }}

@@ -28,9 +28,9 @@ pycharm-config-file-file-managed-environ_file:
     - template: jinja
     - context:
               {%- if pycharm.pkg.use_upstream_macapp %}
-        path: '/Applications/Pycharm\ CE.app/Contents/MacOS'
+        path: '/Applications/{{ pycharm.pkg.name|replace(' ','\ ') }}{{ '\ %sE'|format(pycharm.edition) if pycharm.edition else '' }}/Contents/MacOS'  # noqa 204
               {%- else %}
-        path: {{ pycharm.pkg.archive.name }}/bin
+        path: {{ pycharm.pkg.archive.path }}/bin
               {%- endif %}
         environ: {{ pycharm.environ|json }}
     - require:

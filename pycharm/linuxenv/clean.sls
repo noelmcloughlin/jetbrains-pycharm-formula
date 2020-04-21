@@ -11,21 +11,21 @@ pycharm-linuxenv-home-file-absent:
   file.absent:
     - names:
       - /opt/pycharm
-      - {{ pycharm.pkg.archive.name }}
+      - {{ pycharm.pkg.archive.path }}
 
         {% if pycharm.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
 
 pycharm-linuxenv-home-alternatives-clean:
   alternatives.remove:
     - name: pycharmhome
-    - path: {{ pycharm.pkg.archive.name }}
+    - path: {{ pycharm.pkg.archive.path }}
     - onlyif: update-alternatives --get-selections |grep ^pycharmhome
 
 
 pycharm-linuxenv-executable-alternatives-clean:
   alternatives.remove:
     - name: pycharm
-    - path: {{ pycharm.pkg.archive.name }}/pycharm
+    - path: {{ pycharm.pkg.archive.path }}/pycharm
     - onlyif: update-alternatives --get-selections |grep ^pycharm
 
         {%- else %}
