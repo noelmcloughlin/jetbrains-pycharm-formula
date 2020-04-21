@@ -1,43 +1,60 @@
-#Default Look Dictionary
-
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 pycharm:
-  prefix: /usr/local/jetbrains
-  tmpdir: /tmp/jetbrainstmp
+  product: PC   # Pycharm
+  edition: C    # community or '' (professional)
+  release: latest
+  version: latest
   command: /bin/pycharm.sh
-  homes: /home
-  osflavour: linux
+  config_file: None
+  config: {}
+  environ_file: /etc/default/pycharm.sh
+  environ: []
 
-  jetbrains:
-    home: /opt/jetbrains
-    uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
-    #See https://www.jetbrains.com/help/pycharm/meet-pycharm.html
-    #Product default is PyCharm (PC), v.s. PyCharm-Edu (PCE).
-    product: PC
-    #Defaults to community edition
-    edition: C
+  pkg:
+    name: pycharm
+    tag: linuxAnaconda
+    release: None
+    use_upstream_archive: true
+    use_upstream_macapp: false
+    deps:
+      - curl
+      - tar
+      - gzip
+    repo: {}
+    suffix: tar.gz
+    macapp: {}
+    archive:
+      name: None
+      uri: 'https://data.services.jetbrains.com/products/releases?latest=true&code='
+      source_hash: None
+      enforce_toplevel: false
+      trim_output: true
+      options: '--strip-components=1'
 
-  dl:
-    archive_type: tar
-    opts: -s -L
-    interval: 60
-    retries: 1
-    source_url:
-    src_hashfile:
-    src_hashsum:
+  dir:
+    archive: /usr/local/jetbrains
+    homes: /home
+    tmp: /tmp/jetbrains/pycharm
+    name: Pycharm
+
+  identity:
+    rootuser: root
+    rootgroup: root
+    user: undefined_user
+
+  retry_option:
+    # https://docs.saltstack.com/en/latest/ref/states/requisites.html#retrying-states
+    attempts: 2
+    until: true
+    interval: 10
+    splay: 10
 
   linux:
-    symlink: /usr/bin/pycharm
-    #debian alternatives is disabled by default. Activated via pillar value.
+    symlink: /usr/local/bin/pycharm
     altpriority: 0
-    #Place .desktop file for showing PyCharm in e.g. Gnome's launcher.
-    install_desktop_file: True
+    # On freedesktop.org-compliant desktops, enable Icon on Linux launchers.
+    # Place a .desktop file in e.g. /usr/share/applications
+    install_desktop_file: true
     desktop_file: /usr/share/applications/pycharm.desktop
-
-  prefs:
-    user:
-    group:
-    #See https://www.jetbrains.com/help/pycharm/exporting-and-importing-settings.html
-    jarurl:
-    jardir:
-    jarfile: pycharm-settings.jar
-

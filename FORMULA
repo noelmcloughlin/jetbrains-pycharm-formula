@@ -1,8 +1,9 @@
 name: pycharm
-os: MacOS, gnu-linux
-os_family: RedHat, Debian, Suse, FreeBSD, Darwin
-version: 201710
+os: Debian, Ubuntu, Raspbian, RedHat, Fedora, CentOS, Amazon, Suse, openSUSE, Gentoo, Funtoo, Arch, Manjaro, Alpine, FreeBSD, OpenBSD, Solaris, SmartOS, Windows, MacOS
+os_family: Debian, RedHat, Suse, Gentoo, Arch, Alpine, FreeBSD, OpenBSD, Solaris, Windows, MacOS
+version: 0.14.0
 release: 1
-minimum_version: 2016.3
-summary: Formula for installing pycharm
-description: Formula for installing PyCharm IDE for Python developers
+minimum_version: 2016.11
+summary: pycharm formula
+description: Formula to install pycharm and configure it.
+top_level_dir: pycharm

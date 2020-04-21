@@ -3,14 +3,12 @@
 ---
 pycharm:
   edition: C       # community
-  config: {}
   environ:
     a: b
   pkg:
-    tag: linuxAnaconda
     use_upstream_archive: true
     use_upstream_macapp: false
   identity:
-    user: undefined_user
+    user: root
   linux:
-    altpriority: 0
+    altpriority: 10000
