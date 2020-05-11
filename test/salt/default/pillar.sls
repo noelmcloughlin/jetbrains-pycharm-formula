@@ -10,6 +10,6 @@ pycharm:
     use_upstream_archive: true
     use_upstream_macapp: false
   identity:
-    user: undefined_user  # need usernamne on linux
+    user: root
   linux:
-    altpriority: 0
+    altpriority: 10000
