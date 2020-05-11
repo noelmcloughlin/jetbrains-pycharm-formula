@@ -1,7 +1,7 @@
 .. _readme:
 
 pycharm-formula
-============
+===============
 
 |img_travis| |img_sr|
 
@@ -17,6 +17,7 @@ pycharm-formula
 Formula to install Pycharm on GNU/Linux and MacOS.
 
 .. contents:: **Table of Contents**
+   :depth: 1
 
 General notes
 -------------

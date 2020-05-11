@@ -13,8 +13,6 @@ ignore: |
   test/**/states/**/*.sls
   .kitchen/
   pycharm/osfamilymap.yaml
-  pycharm/files/default/shortcut.desktop.jinja
-  pillar.example
 
 yaml-files:
   # Default settings
