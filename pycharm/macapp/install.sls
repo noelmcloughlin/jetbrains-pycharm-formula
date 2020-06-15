@@ -55,7 +55,7 @@ pycharm-macos-app-install-macpackage:
     - template: jinja
     - context:
       appname: {{ pycharm.pkg.name }}
-      edition: {{ pycharm.edition }}
+      edition: {{ '' if 'edition' not in pycharm else pycharm.edition }}
       user: {{ pycharm.identity.user }}
       homes: {{ pycharm.dir.homes }}
   cmd.run:
