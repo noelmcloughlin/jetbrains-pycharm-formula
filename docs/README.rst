@@ -55,7 +55,7 @@ Available states
    :local:
 
 ``pycharm``
-^^^^^^^^^^
+^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
@@ -64,17 +64,17 @@ manages Pycharm configuration file and then
 configures the development environment.
 
 ``pycharm.archive``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 This state will install Pycharm from archive only.
 
 ``pycharm.macapp``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 This state will install Pycharm from source only.
 
 ``pycharm.config``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 This state will configure npmrc and/or environment and has a dependency on ``pycharm.install``
 via include list.
@@ -85,7 +85,7 @@ via include list.
 This state will install some Pycharm linux-alternatives on GNU/Linux.
 
 ``pycharm.clean``
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
@@ -94,25 +94,25 @@ removes the configuration file and
 then uninstalls the package.
 
 ``pycharm.config.clean``
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove the configuration of Pycharm and has a
 dependency on ``pycharm.package.clean`` via include list.
 
 ``pycharm.archive.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Pycharm package and has a dependency on
 ``pycharm.config.clean`` via include list.
 
 ``pycharm.macapp.clean``
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Pycharm package and has a dependency on
 ``pycharm.config.clean`` via include list.
 
 ``pycharm.linuxenv.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Pycharm linux-alternatives on GNU/Linux.
 
