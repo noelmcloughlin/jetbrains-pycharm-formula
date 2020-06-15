@@ -28,7 +28,7 @@ pycharm-config-file-file-managed-desktop-shortcut_file:
     - template: jinja
     - context:
         appname: {{ pycharm.pkg.name }}
-        edition: {{ pycharm.edition|json }}
+        edition: {{ '' if 'edition' not in pycharm else pycharm.edition|json }}
         command: {{ pycharm.command|json }}
               {%- if pycharm.pkg.use_upstream_macapp %}
         path: {{ pycharm.pkg.macapp.path }}
