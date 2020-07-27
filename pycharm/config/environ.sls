@@ -27,11 +27,13 @@ pycharm-config-file-file-managed-environ_file:
     - makedirs: True
     - template: jinja
     - context:
-              {%- if pycharm.pkg.use_upstream_macapp %}
-        path: '/Applications/{{ pycharm.pkg.name|replace(' ','\ ') }}{{ '' if 'edition' not in pycharm else '\ %sE'|format(pycharm.edition) }}.app/Contents/MacOS'  # noqa 204
-              {%- else %}
-        path: {{ pycharm.pkg.archive.path }}/bin
-              {%- endif %}
-        environ: {{ pycharm.environ|json }}
+      environ: {{ pycharm.environ|json }}
+                      {%- if pycharm.pkg.use_upstream_macapp %}
+      edition:  {{ '' if not pycharm.edition else ' %sE'|format(pycharm.edition) }}.app/Contents/MacOS
+      appname: {{ pycharm.dir.path }}/{{ pycharm.pkg.name }}
+                      {%- else %}
+      edition: ''
+      appname: {{ pycharm.dir.path }}/bin
+                      {%- endif %}
     - require:
       - sls: {{ sls_package_install }}

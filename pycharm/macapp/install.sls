@@ -49,17 +49,21 @@ pycharm-macos-app-install-macpackage:
     - onchanges:
       - cmd: pycharm-macos-app-install-curl
   file.managed:
-    - name: /tmp/mac_shortcut.sh
-    - source: salt://pycharm/files/mac_shortcut.sh
+    - name: /tmp/mac_shortcut.sh.jinja
+    - source: salt://pycharm/files/mac_shortcut.sh.jinja
     - mode: 755
     - template: jinja
     - context:
-      appname: {{ pycharm.pkg.name }}
-      edition: {{ '' if 'edition' not in pycharm else pycharm.edition }}
+      appname: {{ pycharm.dir.path }}/{{ pycharm.pkg.name }}
+      edition: {{ '' if not pycharm.edition else ' %sE'|format(pycharm.edition) }}
       user: {{ pycharm.identity.user }}
       homes: {{ pycharm.dir.homes }}
+    - require:
+      - macpackage: pycharm-macos-app-install-macpackage
+    - onchanges:
+      - macpackage: pycharm-macos-app-install-macpackage
   cmd.run:
-    - name: /tmp/mac_shortcut.sh
+    - name: /tmp/mac_shortcut.sh.jinja
     - runas: {{ pycharm.identity.user }}
     - require:
       - file: pycharm-macos-app-install-macpackage

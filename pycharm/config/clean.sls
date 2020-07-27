@@ -26,7 +26,7 @@ pycharm-config-clean-file-absent:
                {%- if grains.kernel|lower == 'linux' %}
       - {{ pycharm.linux.desktop_file }}
                {%- elif grains.os == 'MacOS' %}
-      - {{ pycharm.dir.homes }}/{{ pycharm.identity.user }}/Desktop/{{ pycharm.pkg.name }}{{ '' if 'edition' not in pycharm else '\ %sE'|format(pycharm.edition) }}  # noqa 204
+      - {{ pycharm.dir.homes }}/{{ pycharm.identity.user }}/Desktop/{{ pycharm.pkg.name }}*{{ pycharm.edition }}*
                {%- endif %}
     - require:
       - sls: {{ sls_package_clean }}

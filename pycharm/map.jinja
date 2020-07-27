@@ -19,24 +19,20 @@
 
 {%- set edition = '' if 'edition' not in p else p.edition %}
 {%- set pcode = p.product ~ edition %}
-{%- set jdata = salt['cmd.run']('curl -s -L "{0}{1}"'.format(p.pkg.archive.uri, pcode))|load_yaml %}
+{%- set jdata = salt['cmd.run']('curl -s -L "{0}{1}"'.format(p.pkg.uri, pcode))|load_yaml %}
 {%- do p.update({ 'version': jdata[ pcode ][0]['version'] }) %}
 
-{%- set dirname = 'p-%s-%s'|format( edition, p.version) %}
+{%- set dirname = 'pycharm-%s-%s'|format( edition, p.version) %}
 {%- set url = jdata[ pcode ][0]['downloads'][ p.flavour ]['link'] %}
 {%- set hash  = salt['cmd.run']('curl -L -s "{0}"'.format( jdata[ pcode ][0]['downloads'][ p.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
 
 {%- if p.pkg.use_upstream_archive %}
-    {%- do p.pkg.archive.update({'name': p.dir.archive ~ '/' ~ dirname,
-                                 'path': p.dir.archive ~ '/' ~ dirname,
-                                 'source': url,
-                                 'source_hash': hash }) %}
+    {%- do p.dir.update({'path': p.dir.archive ~ '/' ~ dirname}) %}
+    {%- do p.pkg.archive.update({'name': p.dir.archive ~ '/' ~ dirname, 'source': url, 'source_hash': hash }) %}
 {%- endif %}
 {%- if p.pkg.use_upstream_macapp %}
-    {%- do p.pkg.macapp.update({'name': '/Applications',
-                                'path': '/Applications',
-                                'source': url,
-                                'source_hash': hash }) %}
+    {%- do p.dir.update({'path': '/Applications'}) %}
+    {%- do p.pkg.macapp.update({'source': url, 'source_hash': hash }) %}
 {%- endif %}
 
 {%- set pycharm = p %}

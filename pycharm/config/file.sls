@@ -28,12 +28,7 @@ pycharm-config-file-managed-config_file:
     - makedirs: True
     - template: jinja
     - context:
-              {%- if pycharm.pkg.use_upstream_macapp %}
-        path: {{ pycharm.pkg.macapp.path }}
-              {%- else %}
-        path: {{ pycharm.pkg.archive.path }}
-              {%- endif %}
-        config: {{ pycharm.config|json }}
+      config: {{ pycharm.config|json }}
     - require:
       - sls: {{ sls_package_install }}
 
