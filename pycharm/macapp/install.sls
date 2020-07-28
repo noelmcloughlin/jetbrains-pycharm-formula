@@ -15,7 +15,9 @@ pycharm-macos-app-install-curl:
     - name: curl
   cmd.run:
     - name: curl -Lo {{ pycharm.dir.tmp }}/pycharm-{{ pycharm.version }} "{{ pycharm.pkg.macapp.source }}"
-    - unless: test -f {{ pycharm.dir.tmp }}/pycharm-{{ pycharm.version }}
+    - unless:
+      - test -f {{ pycharm.dir.tmp }}/pycharm-{{ pycharm.version }}
+      - test -d {{ pycharm.dir.path }}/{{ pycharm.pkg.name }}{{ '' if not pycharm.edition else ' %sE'|format(pycharm.edition) }}  # noqa 204
     - require:
       - file: pycharm-macos-app-install-curl
       - pkg: pycharm-macos-app-install-curl
