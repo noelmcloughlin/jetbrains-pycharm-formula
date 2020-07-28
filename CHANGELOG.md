@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.0.2](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/compare/v1.0.1...v1.0.2) (2020-07-28)
+
+
+### Bug Fixes
+
+* **cmd.run:** wrap url in quotes (zsh) ([84cdb0f](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/84cdb0fc9089d463b98a8dbb8e80122ecffe8a80))
+* **macos:** correct syntax ([fbd95ef](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/fbd95eff13c5272d0dd8fc93960c9fae7c826ab8))
+* **macos:** do not create shortcut file ([700fabd](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/700fabd65d0a0d64063667ba8b1904cc0f1f6b67))
+* **macos:** do not create shortcut file ([1fd4f31](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/1fd4f31ddbeaaa617f5db4a8308b3ecd94cf58aa))
+
+
+### Code Refactoring
+
+* **jetbrains:** align all jetbrains formulas ([33e63e9](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/33e63e96074340952270deaa7e9dd22bba168a75))
+
+
+### Continuous Integration
+
+* **kitchen:** use `saltimages` Docker Hub where available [skip ci] ([ba2c7da](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/ba2c7dada81fe3838db31a2be807184ace3c3b6d))
+
+
+### Documentation
+
+* **readme:** minor update ([6a4a2a1](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/6a4a2a17f46ae0ea1b6fe58e4744f0735d087697))
+
+
+### Styles
+
+* **libtofs.jinja:** use Black-inspired Jinja formatting [skip ci] ([e61659b](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/commit/e61659b4c77fd025d05618c394a215dd874ffbac))
+
 ## [1.0.1](https://github.com/saltstack-formulas/jetbrains-pycharm-formula/compare/v1.0.0...v1.0.1) (2020-06-15)
 
 
