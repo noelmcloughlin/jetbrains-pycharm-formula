@@ -5,19 +5,15 @@
 {%- from tplroot ~ "/map.jinja" import pycharm with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
-{%- if pycharm.linux.install_desktop_file and grains.os not in ('MacOS',) %}
-       {%- if pycharm.pkg.use_upstream_macapp %}
-           {%- set sls_package_install = tplroot ~ '.macapp.install' %}
-       {%- else %}
-           {%- set sls_package_install = tplroot ~ '.archive.install' %}
-       {%- endif %}
+{%- if pycharm.shortcut.file and grains.kernel|lower == 'linux' %}
+    {%- set sls_package_install = tplroot ~ '.archive.install' %}
 
 include:
   - {{ sls_package_install }}
 
 pycharm-config-file-file-managed-desktop-shortcut_file:
   file.managed:
-    - name: {{ pycharm.linux.desktop_file }}
+    - name: {{ pycharm.shortcut.file }}
     - source: {{ files_switch(['shortcut.desktop.jinja'],
                               lookup='pycharm-config-file-file-managed-desktop-shortcut_file'
                  )
@@ -27,15 +23,15 @@ pycharm-config-file-file-managed-desktop-shortcut_file:
     - makedirs: True
     - template: jinja
     - context:
-        appname: {{ pycharm.pkg.name }}
-        edition: {{ '' if 'edition' not in pycharm else pycharm.edition|json }}
-        command: {{ pycharm.command|json }}
-              {%- if pycharm.pkg.use_upstream_macapp %}
-        path: {{ pycharm.pkg.macapp.path }}
-    - onlyif: test -f "{{ pycharm.pkg.macapp.path }}/{{ pycharm.command }}"
-              {%- else %}
-        path: {{ pycharm.pkg.archive.path }}
-    - onlyif: test -f {{ pycharm.pkg.archive.path }}/{{ pycharm.command }}
+    - context:
+      command: {{ pycharm.command|json }}
+                      {%- if grains.os == 'MacOS' %}
+      edition: {{ '' if 'edition' not in pycharm else pycharm.edition|json }}
+      appname: {{ pycharm.dir.path }}/{{ pycharm.pkg.name }}
+                      {%- else %}
+      edition: ''
+      appname: {{ pycharm.dir.path }}
+    - onlyif: test -f {{ pycharm.dir.path }}/{{ pycharm.command }}
               {%- endif %}
     - require:
       - sls: {{ sls_package_install }}

@@ -10,8 +10,8 @@
 pycharm-linuxenv-home-file-symlink:
   file.symlink:
     - name: /opt/pycharm
-    - target: {{ pycharm.pkg.archive.path }}
-    - onlyif: test -d '{{ pycharm.pkg.archive.path }}'
+    - target: {{ pycharm.dir.path }}
+    - onlyif: test -d '{{ pycharm.dir.path }}'
     - force: True
 
         {% if pycharm.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
@@ -20,14 +20,14 @@ pycharm-linuxenv-home-alternatives-install:
   alternatives.install:
     - name: pycharmhome
     - link: /opt/pycharm
-    - path: {{ pycharm.pkg.archive.path }}
+    - path: {{ pycharm.dir.path }}
     - priority: {{ pycharm.linux.altpriority }}
     - retry: {{ pycharm.retry_option|json }}
 
 pycharm-linuxenv-home-alternatives-set:
   alternatives.set:
     - name: pycharmhome
-    - path: {{ pycharm.pkg.archive.path }}
+    - path: {{ pycharm.dir.path }}
     - onchanges:
       - alternatives: pycharm-linuxenv-home-alternatives-install
     - retry: {{ pycharm.retry_option|json }}
@@ -36,7 +36,7 @@ pycharm-linuxenv-executable-alternatives-install:
   alternatives.install:
     - name: pycharm
     - link: {{ pycharm.linux.symlink }}
-    - path: {{ pycharm.pkg.archive.path }}/{{ pycharm.command }}
+    - path: {{ pycharm.dir.path }}/{{ pycharm.command }}
     - priority: {{ pycharm.linux.altpriority }}
     - require:
       - alternatives: pycharm-linuxenv-home-alternatives-install
@@ -46,7 +46,7 @@ pycharm-linuxenv-executable-alternatives-install:
 pycharm-linuxenv-executable-alternatives-set:
   alternatives.set:
     - name: pycharm
-    - path: {{ pycharm.pkg.archive.path }}/{{ pycharm.command }}
+    - path: {{ pycharm.dir.path }}/{{ pycharm.command }}
     - onchanges:
       - alternatives: pycharm-linuxenv-executable-alternatives-install
     - retry: {{ pycharm.retry_option|json }}

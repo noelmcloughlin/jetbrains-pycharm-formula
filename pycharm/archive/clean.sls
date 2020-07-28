@@ -5,8 +5,12 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import pycharm with context %}
 
-pycharm-package-archive-clean-file-absent:
+p-package-archive-clean-file-absent:
   file.absent:
     - names:
-      - {{ pycharm.pkg.archive.path }}
-      - /usr/local/jetbrains/pycharm-*
+      - {{ pycharm.dir.tmp }}
+                  {%- if grains.os == 'MacOS' %}
+      - {{ pycharm.dir.path }}/{{ pycharm.pkg.name }}*{{ pycharm.edition }}*.app
+                  {%- else %}
+      - {{ pycharm.dir.path }}
+                  {%- endif %}
